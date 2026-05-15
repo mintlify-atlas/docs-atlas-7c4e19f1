@@ -1,0 +1,44 @@
+---
+title: "Claudette: Claude AI assistant inside Sublime Text"
+description: "Claudette connects Sublime Text to the Claude API so you can chat, ask coding questions, and manage file context without switching windows."
+---
+
+Claudette is a Sublime Text package that connects your editor to the Anthropic Claude AI API. Instead of switching between your editor and a browser, you can ask questions, get code explanations, and hold multi-turn conversations with Claude in a dedicated chat view — right inside Sublime Text.
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="Ask questions" icon="message" href="/guides/asking-questions">
+    Open a question prompt from the command palette or Tools menu. Any text you have selected is automatically sent along as context.
+  </Card>
+  <Card title="Manage context" icon="files" href="/guides/managing-context">
+    Include individual files, all open files, or entire folders in the chat so Claude has the full picture of your project.
+  </Card>
+  <Card title="Multiple chat windows" icon="table-columns" href="/guides/asking-questions">
+    Run several simultaneous conversations, each with its own context and history, in separate chat views.
+  </Card>
+  <Card title="Choose your model" icon="sliders" href="/configuration/models">
+    Switch between available Claude models — including Haiku, Sonnet, and Opus — directly from the command palette.
+  </Card>
+  <Card title="System prompts" icon="pen-to-square" href="/configuration/system-prompts">
+    Create and switch between custom system prompts to tailor Claude's behavior for coding, writing, or any other task.
+  </Card>
+  <Card title="Chat history" icon="clock-rotate-left" href="/guides/chat-history">
+    Export conversations to JSON and import them later to pick up right where you left off.
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+Before you install Claudette, make sure you have the following:
+
+- **Sublime Text 3 or 4** — Claudette is a Sublime Text package and requires a working Sublime Text installation.
+- **An Anthropic API key** — Claudette communicates directly with the Claude API. You need a key from [console.anthropic.com](https://console.anthropic.com/settings/keys) to use it.
+
+<Note>
+  API usage is billed by Anthropic based on the number of tokens sent and received. Review [Anthropic's pricing](https://www.anthropic.com/pricing) before you start.
+</Note>
+
+## Privacy
+
+Everything you send through Claudette — your questions, selected code, and any files you include as context — is transmitted to Anthropic's servers to generate a response. Review [Anthropic's Privacy & Legal documentation](https://support.anthropic.com/en/collections/4078534-privacy-legal) to understand how your data is handled before sharing sensitive or proprietary code.

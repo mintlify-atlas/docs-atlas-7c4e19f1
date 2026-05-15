@@ -1,0 +1,49 @@
+---
+title: "How to ask Claude questions inside your Sublime Text"
+description: "Use Claudette's question panel to send queries with selected code as context, run multiple independent chats in parallel, and cancel requests mid-flight."
+---
+
+Claudette adds a question panel to Sublime Text that sends your prompt—along with any selected code—to the Claude API and streams the response into a dedicated chat view. You can run multiple independent chats in the same window, cancel a request mid-flight, and see token usage and cost after every reply.
+
+## Opening the question panel
+
+Run **Claudette: Ask Question** from the command palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) or via **Tools > Claudette > Ask Question**. An input bar labelled "Ask Claude:" appears at the bottom of the window.
+
+- Press **Enter** to submit your question.
+- Press **Shift+Enter** to insert a line break inside the input.
+
+<Tip>
+When a chat view is focused, press **Enter** directly to open the question panel—no need to go through the command palette.
+</Tip>
+
+## Using selected text as context
+
+Any text you have selected in the active editor when you open the question panel is automatically included in the request. The selection appears as a **Selected Code** block beneath your question in the chat view.
+
+This is useful when you want to ask Claude about a specific function, a snippet you are debugging, or a block of configuration you want explained. Select the relevant lines first, then open the question panel and type your question.
+
+## Multiple chat windows
+
+Each chat view maintains its own independent conversation history and context files. To start a fresh conversation without affecting the current one, run **Claudette: Ask Question In New Chat View** from the command palette or the Tools menu. A new tab opens and becomes the active chat; previous chats remain open in the background.
+
+Switching between chat tabs switches the active conversation. The next question you ask is sent to whichever chat is currently marked as the current chat.
+
+## Stopping a request
+
+To cancel an in-flight request, run **Claudette: Stop Request** from the command palette. The streaming response stops immediately and the chat view returns to its normal state. The partial response already rendered in the view is preserved.
+
+## Cost display
+
+After each response, Claudette shows token counts and an estimated cost in the status bar and chat view. The display includes input tokens, output tokens, the cost for the current response, and a running session total.
+
+To turn off cost display, set `show_cost` to `false` in your settings:
+
+```json
+{
+  "chat": {
+    "show_cost": false
+  }
+}
+```
+
+The default value is `true`. Open your settings via **Preferences > Package Settings > Claudette > Settings**.

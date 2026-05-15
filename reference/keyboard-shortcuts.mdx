@@ -1,0 +1,84 @@
+---
+title: "Configure keyboard shortcuts for Claudette commands"
+description: "Add custom key bindings for Claudette in Sublime Text, with examples for Mac and Linux/Windows, plus built-in chat view shortcuts that need no configuration."
+---
+
+Claudette does not register any global keyboard shortcuts by default to avoid conflicts with existing bindings in your editor. You can add your own shortcuts at any time through Sublime Text's key bindings system, and a small number of shortcuts are active automatically when a chat view is focused.
+
+## Adding shortcuts
+
+To add a keyboard shortcut for any Claudette command, open **Preferences > Key Bindings**. This opens a split editor with the default bindings on the left and your user bindings on the right. Add entries to the right-hand file.
+
+<Steps>
+  <Step title="Open key bindings">
+    Go to **Preferences > Key Bindings** in the menu bar.
+  </Step>
+  <Step title="Add your binding">
+    Edit the user key bindings file (the right pane) and add an entry for the command you want to bind.
+  </Step>
+  <Step title="Save the file">
+    Save the file. The shortcut takes effect immediately without restarting Sublime Text.
+  </Step>
+</Steps>
+
+### Example: Ask Question shortcut
+
+<Tabs>
+  <Tab title="Mac">
+    ```json
+    [
+      {
+        "keys": ["super+k", "super+c"],
+        "command": "claudette_ask_question"
+      }
+    ]
+    ```
+  </Tab>
+  <Tab title="Linux / Windows">
+    ```json
+    [
+      {
+        "keys": ["ctrl+k", "ctrl+c"],
+        "command": "claudette_ask_question"
+      }
+    ]
+    ```
+  </Tab>
+</Tabs>
+
+## Built-in chat view shortcuts
+
+The following shortcuts are active automatically whenever a Claudette chat view is focused. They do not require any configuration.
+
+| Key | Action |
+|-----|--------|
+| Enter | Submit the current question (same as running Ask Question from inside the chat view) |
+| Escape | Cancel the active API request (same as Stop Request) |
+
+## Command palette
+
+The command palette gives you quick access to every Claudette command without a dedicated key binding.
+
+| Platform | Shortcut |
+|----------|----------|
+| Mac | Cmd+Shift+P |
+| Windows / Linux | Ctrl+Shift+P |
+
+Type "Claudette" after opening the palette to filter to Claudette commands.
+
+## Popular commands to bind
+
+<Tip>
+  Consider adding shortcuts for the commands you use most often. Here are good candidates along with their command IDs to use in your key bindings file.
+</Tip>
+
+| Command | Command ID |
+|---------|------------|
+| Ask Question | `claudette_ask_question` |
+| Ask Question In New Chat View | `claudette_ask_new_question` |
+| Stop Request | `claudette_stop_request` |
+| Switch Model | `claudette_select_model_panel` |
+| Switch System Prompt | `claudette_select_system_message_panel` |
+| Switch API Key | `claudette_select_api_key_panel` |
+| Add Current File To Chat | `claudette_context_add_current_file` |
+| Clear Chat History | `claudette_clear_chat_history` |

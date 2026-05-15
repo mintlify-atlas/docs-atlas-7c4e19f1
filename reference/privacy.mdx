@@ -1,0 +1,51 @@
+---
+title: "What data Claudette transmits to Anthropic's servers"
+description: "What Claudette transmits to the Anthropic API — your questions, selected text, context files, and history — plus how your API key is stored and protected."
+---
+
+Claudette is a thin client that forwards your messages to the Anthropic Claude API. Claudette itself does not collect or store any data beyond what is saved locally on your machine in Sublime Text's settings files. Understanding what leaves your machine and when helps you use the package responsibly.
+
+## What gets sent to Anthropic
+
+Every time you submit a question, Claudette assembles a request and sends it to Anthropic's API servers over HTTPS. That request can include:
+
+- **Your question** — the text you typed into the input panel or chat view
+- **Selected text** — any code or text that was selected in the active view when you submitted the question
+- **Included files** — the full contents of any files you added to the chat context via the context commands
+- **Chat history** — all previous messages in the conversation, unless you have run Clear Chat History
+- **System prompt** — the active system prompt, if one is configured
+
+Everything in that list leaves your machine and is processed on Anthropic's servers. Do not include content that you are not permitted to send to a third-party service.
+
+<Warning>
+  Do not add files containing passwords, secret keys, API tokens, private certificates, or other sensitive credentials to the chat context. Their contents will be transmitted to Anthropic's API.
+</Warning>
+
+## API key security
+
+Your Anthropic API key is stored in Sublime Text's local settings file (`Claudette.sublime-settings`) on your machine. It is never sent anywhere other than the Anthropic API itself.
+
+When Claudette makes a request, your key is transmitted in the HTTP Authorization header over an HTTPS connection. By default, SSL certificate verification is enabled to ensure the connection is made to a legitimate Anthropic server.
+
+<Warning>
+  The `verify_ssl` setting in Claudette's configuration can be set to `false` to disable SSL certificate verification. Do not disable this setting in production or on machines that handle sensitive data. Doing so removes a critical protection against man-in-the-middle attacks that could expose your API key and your data.
+</Warning>
+
+## The text_editor_tool setting
+
+When the `text_editor_tool` feature is enabled in Claudette's settings, Claude may automatically read file contents from your editor as part of a response. This means file contents can be sent to the API without you explicitly running an "Add file" command.
+
+<Info>
+  Review the Claudette settings file (**Preferences > Package Settings > Claudette > Settings**) to understand which optional features are active and what data each one may transmit.
+</Info>
+
+## Anthropic's privacy policy
+
+Claudette's data handling ends at the point of transmission. What Anthropic does with the data — including retention periods, data processing practices, and legal compliance — is governed entirely by Anthropic's own policies.
+
+For information about how Anthropic handles data sent to the Claude API, visit the [Anthropic Privacy & Legal documentation](https://support.anthropic.com/en/collections/4078534-privacy-legal). That collection covers:
+
+- Data retention and deletion
+- How prompt and completion data is used
+- Legal compliance and certifications
+- How to make data subject requests

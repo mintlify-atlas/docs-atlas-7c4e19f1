@@ -1,0 +1,84 @@
+---
+title: "Give Claude web search access during conversations"
+description: "Enable web search in Claudette so Claude can look up current information during a conversation, with controls over domains, search frequency, and location."
+---
+
+Web search lets Claude look up current information during a conversation. When you ask a question that requires recent or real-world knowledge, Claude decides on its own whether to run a search, retrieves the results, and cites sources inline as markdown links.
+
+## Enabling web search
+
+Web search is disabled by default. To enable it, open **Preferences > Package Settings > Claudette > Settings** and add:
+
+```json
+{
+  "web_search": true
+}
+```
+
+Web search is only supported on specific Claude models. Supported models include **Claude Opus 4.6**, **Claude Opus 4.5**, **Claude Sonnet 4.5**, and **Claude Haiku 4.5**. If you have a different model selected, web search will not run even when the setting is enabled.
+
+<Warning>
+Web search is billed at **$10 per 1,000 searches** in addition to normal token costs. Each conversation turn can trigger multiple searches depending on your question and the `web_search_max_uses` setting.
+</Warning>
+
+## How it works
+
+When you ask a question, Claude decides whether a web search would improve the answer. If it does, the search runs automatically—you do not need to phrase your question in a special way.
+
+Search results appear in the chat view before Claude's answer. Citations are rendered as inline markdown links so you can open sources directly from the chat.
+
+## Controlling search behavior
+
+Several settings let you tune how web search works. All settings go in **Preferences > Package Settings > Claudette > Settings**.
+
+**Limit the number of searches per request:**
+
+```json
+{
+  "web_search_max_uses": 5
+}
+```
+
+Accepts an integer from 1 to 20. The default is 5. Lower this value to reduce the number of searches—and the associated cost—on a single request.
+
+**Restrict results to specific domains:**
+
+```json
+{
+  "web_search_allowed_domains": ["docs.python.org", "developer.mozilla.org"]
+}
+```
+
+When set, Claude only retrieves results from the listed domains.
+
+**Block specific domains:**
+
+```json
+{
+  "web_search_blocked_domains": ["example.com"]
+}
+```
+
+Claude excludes results from the listed domains.
+
+<Note>
+Do not set both `web_search_allowed_domains` and `web_search_blocked_domains` at the same time. Use one or the other.
+</Note>
+
+**Localize search results:**
+
+You can provide an approximate location to make search results more relevant to a specific region. Set `web_search_user_location` using an IANA timezone identifier and optional city, region, and country:
+
+```json
+{
+  "web_search_user_location": {
+    "type": "approximate",
+    "city": "San Francisco",
+    "region": "California",
+    "country": "US",
+    "timezone": "America/Los_Angeles"
+  }
+}
+```
+
+All fields inside `web_search_user_location` except `type` are optional. A full list of IANA timezone identifiers is available at [Wikipedia: List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).

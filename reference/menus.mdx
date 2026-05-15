@@ -1,0 +1,82 @@
+---
+title: "Where Claudette commands appear in Sublime Text menus"
+description: "Reference for every Claudette menu location: Tools menu submenus, Preferences settings entry, editor right-click, sidebar context, and tab context menu."
+---
+
+Claudette adds entries to several menus in Sublime Text so its commands are reachable without opening the command palette. The same commands are available in all locations — the menus are simply different access points depending on where you are in the editor.
+
+## Tools menu
+
+Go to **Tools > Claudette** in the menu bar to access the full set of commands. Items are organized into logical submenus.
+
+| Item | Command | Notes |
+|------|---------|-------|
+| Ask Question | `claudette_ask_question` | Opens the question input panel |
+| Ask Question In New Chat View | `claudette_ask_new_question` | Forces a new chat tab |
+| Stop Request | `claudette_stop_request` | Cancels the active API request |
+| Switch Model | `claudette_select_model_panel` | Choose an Anthropic model |
+| Switch System Prompt | `claudette_select_system_message_panel` | Select a configured system prompt |
+| Switch API Key | `claudette_select_api_key_panel` | Switch between API keys |
+
+The **Chat History** submenu contains:
+
+| Item | Command |
+|------|---------|
+| Clear Chat History | `claudette_clear_chat_history` |
+| Export Chat History | `claudette_export_chat_history` |
+| Import Chat History | `claudette_import_chat_history` |
+
+The **Chat Context** submenu contains:
+
+| Item | Command |
+|------|---------|
+| Show Included Files | `claudette_context_manage_files` |
+| Add Current File To Chat | `claudette_context_add_current_file` |
+| Remove Current File From Chat | `claudette_context_remove_current_file` |
+| Add All Open Files To Chat | `claudette_context_add_open_files` |
+| Refresh Included Files | `claudette_context_refresh_files` |
+| Clear Included Files | `claudette_context_clear_files` |
+
+## Preferences menu
+
+Claudette adds a **Settings** entry under **Preferences > Package Settings > Claudette > Settings**. Selecting it opens the `Claudette.sublime-settings` file in a split view showing both the package defaults and your user overrides side by side. This is the same as running the **Claudette: Settings** command (`edit_settings` with the Claudette base file).
+
+## Editor context menu
+
+Right-clicking inside any editor view shows a **Claudette** submenu with file context commands for the currently open file.
+
+| Item | Command |
+|------|---------|
+| Add File to Chat | `claudette_context_add_current_file` |
+| Remove from Chat | `claudette_context_remove_current_file` |
+| Show Included Files | `claudette_context_manage_files` |
+| Clear Included Files | `claudette_context_clear_files` |
+
+## Sidebar context menu
+
+Right-clicking a file or folder in the sidebar panel shows a **Claudette** submenu. This is the primary way to add files from the sidebar to the chat context.
+
+| Item | Command |
+|------|---------|
+| Add File / Add Directory / Add Files to Chat _(dynamic)_ | `claudette_context_add_files` |
+| Show Included Files | `claudette_context_manage_files` |
+| Clear Included Files | `claudette_context_clear_files` |
+
+<Note>
+  The sidebar entry uses `claudette_context_add_files` (not `claudette_context_add_current_file`). Its caption adapts to the selection: **Add File to Chat**, **Add Files to Chat**, **Add Directory to Chat**, or **Add Directories to Chat** depending on what is selected. It supports both individual files and entire folder trees, respecting `.gitignore` patterns.
+</Note>
+
+## Tab context menu
+
+Right-clicking a tab in the tab bar shows the same **Claudette** submenu as the editor context menu.
+
+| Item | Command |
+|------|---------|
+| Add File to Chat | `claudette_context_add_current_file` |
+| Remove from Chat | `claudette_context_remove_current_file` |
+| Show Included Files | `claudette_context_manage_files` |
+| Clear Included Files | `claudette_context_clear_files` |
+
+<Tip>
+  All menu items are also available in the command palette. Open it with Cmd+Shift+P (Mac) or Ctrl+Shift+P (Windows/Linux) and type "Claudette" to filter the list.
+</Tip>

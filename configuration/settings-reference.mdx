@@ -1,0 +1,314 @@
+---
+title: "Claudette settings reference: all configuration options"
+description: "Every setting in Claudette.sublime-settings: API keys, models, system prompts, web search, text editor tool, and chat view display options with defaults."
+---
+
+All Claudette settings live in `Claudette.sublime-settings`. To open the file, go to **Preferences > Package Settings > Claudette > Settings**. Settings you define in your user file override the defaults from the package defaults file.
+
+## API settings
+
+<AccordionGroup>
+  <Accordion title="api_key">
+    **Type:** string or object  
+    **Default:** `""`
+
+    Your Anthropic API key. Accepts a plain string for a single key, or an object with a `keys` array and `active_key` index for multiple keys.
+
+    ```json
+    "api_key": "sk-ant-..."
+    ```
+
+    ```json
+    "api_key": {
+      "keys": [
+        { "name": "Work", "key": "sk-ant-..." },
+        { "name": "Personal", "key": "sk-ant-..." }
+      ],
+      "active_key": 0
+    }
+    ```
+
+    See [Configure API Keys](/configuration/api-keys) for details.
+  </Accordion>
+
+  <Accordion title="base_url">
+    **Type:** string  
+    **Default:** `"https://api.anthropic.com/v1/"`
+
+    The base URL for all API requests. Change this to use a proxy or a compatible API endpoint.
+
+    ```json
+    "base_url": "https://your-proxy.example.com/v1/"
+    ```
+  </Accordion>
+
+  <Accordion title="verify_ssl">
+    **Type:** boolean  
+    **Default:** `true`
+
+    Whether to verify SSL certificates when making API requests. Set to `false` to allow self-signed certificates on custom `base_url` endpoints.
+
+    ```json
+    "verify_ssl": false
+    ```
+
+    <Warning>Disabling SSL verification reduces security. Only use this in trusted development environments.</Warning>
+  </Accordion>
+
+  <Accordion title="custom_headers">
+    **Type:** object  
+    **Default:** `{}`
+
+    Optional custom HTTP headers included in every API request. Useful for proxies that require authentication headers.
+
+    ```json
+    "custom_headers": {
+      "X-Custom-Header": "value"
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Model settings
+
+<AccordionGroup>
+  <Accordion title="model">
+    **Type:** string  
+    **Default:** `"claude-sonnet-4-5"`
+
+    The Claude model to use for all requests. You can also switch models at runtime with **Claudette: Switch Model**.
+
+    ```json
+    "model": "claude-opus-4-5"
+    ```
+
+    See [Choosing Claude Models](/configuration/models) for a full breakdown and output limits.
+  </Accordion>
+
+  <Accordion title="max_tokens">
+    **Type:** integer  
+    **Default:** `8192`
+
+    Maximum number of output tokens per response. Must not exceed the selected model's output limit — the API returns a `400` error if it does.
+
+    ```json
+    "max_tokens": 8192
+    ```
+  </Accordion>
+
+  <Accordion title="temperature">
+    **Type:** string or number  
+    **Default:** `"1.0"`  
+    **Range:** `0.0` – `1.0`
+
+    Controls response randomness. Lower values produce more deterministic output; higher values produce more varied responses. Values outside the valid range fall back to `1.0`.
+
+    ```json
+    "temperature": "0.7"
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## System prompts
+
+<AccordionGroup>
+  <Accordion title="system_messages">
+    **Type:** array of strings  
+    **Default:** Three built-in prompts (programming, writing, general)
+
+    The list of available system prompts. The active prompt is selected by `default_system_message_index`.
+
+    ```json
+    "system_messages": [
+      "You are a helpful AI assistant focused on programming help.",
+      "You are a helpful AI assistant focused on writing and documentation.",
+      "You are a helpful AI assistant ready to help with any task."
+    ]
+    ```
+  </Accordion>
+
+  <Accordion title="default_system_message_index">
+    **Type:** integer  
+    **Default:** `0`
+
+    Zero-based index of the active system prompt in `system_messages`. If the index is out of range or the array is empty, no system prompt is sent.
+
+    ```json
+    "default_system_message_index": 0
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Tools
+
+<AccordionGroup>
+  <Accordion title="web_search">
+    **Type:** boolean  
+    **Default:** `false`
+
+    When `true`, Claude can search the web for up-to-date information. Only works with supported models (Claude Opus 4.6, 4.5, Sonnet 4.5, Haiku 4.5). Web search is billed at $10 per 1,000 searches in addition to token costs.
+
+    ```json
+    "web_search": true
+    ```
+  </Accordion>
+
+  <Accordion title="web_search_max_uses">
+    **Type:** integer  
+    **Default:** `5`  
+    **Range:** `1` – `20`
+
+    Maximum number of web searches Claude can make per request when `web_search` is enabled.
+
+    ```json
+    "web_search_max_uses": 5
+    ```
+  </Accordion>
+
+  <Accordion title="web_search_allowed_domains">
+    **Type:** array of strings  
+    **Default:** `[]`
+
+    Restrict web search results to specific domains. Leave empty to allow all domains. Do not set both `web_search_allowed_domains` and `web_search_blocked_domains` at the same time.
+
+    ```json
+    "web_search_allowed_domains": ["docs.example.com", "example.com"]
+    ```
+  </Accordion>
+
+  <Accordion title="web_search_blocked_domains">
+    **Type:** array of strings  
+    **Default:** `[]`
+
+    Exclude specific domains from web search results. Do not set both `web_search_blocked_domains` and `web_search_allowed_domains` at the same time.
+
+    ```json
+    "web_search_blocked_domains": ["example.com"]
+    ```
+  </Accordion>
+
+  <Accordion title="text_editor_tool">
+    **Type:** boolean  
+    **Default:** `false`
+
+    When `true`, Claude can view and edit files in your project using the text editor tool (`view`, `str_replace`, `create`, `insert` commands). Uses non-streaming requests. Paths are resolved against project folders or `text_editor_tool_roots`.
+
+    ```json
+    "text_editor_tool": true
+    ```
+  </Accordion>
+
+  <Accordion title="text_editor_tool_max_characters">
+    **Type:** integer  
+    **Default:** not set (no limit)
+
+    Maximum number of characters Claude can read when viewing a file (Claude 4 tool only). Set to `0` for no limit. This setting is optional and commented out by default.
+
+    ```json
+    "text_editor_tool_max_characters": 10000
+    ```
+  </Accordion>
+
+  <Accordion title="text_editor_tool_roots">
+    **Type:** array of strings  
+    **Default:** `[]`
+
+    Additional directory paths allowed for file operations. Paths must be under these roots or the current project folders.
+
+    ```json
+    "text_editor_tool_roots": ["/home/user/shared-libs"]
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Pricing
+
+<AccordionGroup>
+  <Accordion title="pricing">
+    **Type:** object  
+    **Default:** April 2026 rates
+
+    Token pricing per 1M tokens, used to calculate and display cost information in the chat view. Contains `haiku`, `opus`, and `sonnet` sub-objects, each with `input`, `output`, `cache_write`, and `cache_read` fields (USD).
+
+    ```json
+    "pricing": {
+      "haiku": {
+        "input": 1,
+        "output": 5,
+        "cache_write": 1.25,
+        "cache_read": 0.1
+      },
+      "opus": {
+        "input": 5,
+        "output": 25,
+        "cache_write": 6.25,
+        "cache_read": 0.5
+      },
+      "sonnet": {
+        "input": 3,
+        "output": 15,
+        "cache_write": 3.75,
+        "cache_read": 0.3
+      }
+    }
+    ```
+
+    Update these values if Anthropic changes its pricing. Current rates are listed at [anthropic.com/pricing](https://www.anthropic.com/pricing#702702).
+  </Accordion>
+</AccordionGroup>
+
+## Chat view
+
+<AccordionGroup>
+  <Accordion title="chat.line_numbers">
+    **Type:** boolean  
+    **Default:** `false`
+
+    Show line numbers in the chat view.
+
+    ```json
+    "chat": {
+      "line_numbers": true
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="chat.rulers">
+    **Type:** boolean  
+    **Default:** `false`
+
+    Show rulers in the chat view.
+
+    ```json
+    "chat": {
+      "rulers": true
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="chat.set_scratch">
+    **Type:** boolean  
+    **Default:** `true`
+
+    When `true`, the chat view is marked as a scratch buffer and closes without prompting to save.
+
+    ```json
+    "chat": {
+      "set_scratch": false
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="chat.show_cost">
+    **Type:** boolean  
+    **Default:** `true`
+
+    Show estimated cost information after each response in the chat view.
+
+    ```json
+    "chat": {
+      "show_cost": false
+    }
+    ```
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,47 @@
+---
+title: "Add and manage project files as Claudette chat context"
+description: "Add individual files, open tabs, or entire directories to the chat context so Claude can reference your code when answering questions in Claudette."
+---
+
+Context in Claudette refers to the files you attach to a chat. When you send a question, attached files are included in the system message as structured `<reference_files>` XML so Claude can read their contents and refer to them in its answers. Each chat view has its own independent set of context files.
+
+## Adding individual files
+
+**From the sidebar context menu:** Right-click any file or folder in the Sublime Text sidebar and choose **Add File to Chat** (or **Add Directory to Chat** for folders). When you select a folder, Claudette walks the directory tree and adds each file, respecting `.gitignore` patterns.
+
+**From the command palette:** Run **Claudette: Add Current File To Chat** to add whichever file is open in the active editor. The command only appears when the active view is a saved file that is not already in the context.
+
+To remove the current file, run **Claudette: Remove Current File From Chat**. This command is only visible when the active file is already in the context.
+
+## Working with multiple files
+
+**Add all open tabs:** Run **Claudette: Add All Open Files To Chat** to add every file currently open in the window in one step.
+
+**Review included files:** Run **Claudette: Show Included Files** to open a quick panel listing all files currently in the context. Select a file to either open it in the editor or remove it from the context.
+
+**Refresh after editing:** Run **Claudette: Refresh Included Files** to reload all context files from disk. Claudette reads the latest saved version of each file. Any file that no longer exists on disk is removed from the context automatically.
+
+<Tip>
+Run **Refresh Included Files** after you edit a file you added to the context. Claudette stores a snapshot of the file at the time it was added—refreshing updates that snapshot to the latest saved version.
+</Tip>
+
+## Removing files
+
+| Command | What it does |
+|---|---|
+| **Remove Current File From Chat** | Removes the active editor file from context |
+| **Clear Included Files** | Removes all files from the current chat's context |
+
+**Clear Included Files** is useful when you want to start a fresh conversation about a different part of your codebase without opening a new chat.
+
+## Context limits
+
+Every file you add increases the number of input tokens sent with each request, which increases cost and can affect response quality on very large contexts. A few practices help keep context manageable:
+
+- Add only the files directly relevant to your question.
+- Use **Clear Chat History** to reset the in-memory conversation when a session grows long. Previous messages remain visible in the chat view but are no longer resent to the API, reducing token usage while preserving the chat log you can read.
+- Use **Clear Included Files** to drop files you no longer need.
+
+<Note>
+**Clear Chat History** and **Clear Included Files** are independent. Clearing the history does not remove context files, and removing files does not clear the conversation history.
+</Note>

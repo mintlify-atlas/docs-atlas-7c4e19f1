@@ -1,0 +1,41 @@
+---
+title: "How to export, import, and clear Claudette chat history"
+description: "Clear in-memory conversation history to reduce token costs, export Claudette chats as JSON files, and import them to resume sessions in Sublime Text."
+---
+
+Claudette keeps your conversation history in memory for each chat view. As a session grows, that history is resent with every new question, which increases token costs. You can clear the history to reduce costs, export a conversation to a JSON file, and import it later to continue where you left off.
+
+## Clearing chat history
+
+Run **Claudette: Clear Chat History** from the command palette or **Tools > Claudette > Clear Chat History**.
+
+Clearing history resets the in-memory conversation for the active chat. Claude no longer receives previous messages when you ask your next question. The messages already rendered in the chat view are not deleted—they remain visible so you can scroll back and read them.
+
+**When to use this:** Clear history when a conversation has grown long and you want to ask a new question without the overhead of resending the full history. It is also useful when you want to change the topic and avoid Claude being influenced by earlier context.
+
+## Exporting a conversation
+
+Run **Claudette: Export Chat History** to save the current conversation to a JSON file.
+
+Claudette reads the conversation from the currently active view in the window and opens a save dialog. Choose a location and filename — the default is `chat_history.json`. The exported file contains the full conversation in the following format:
+
+```json
+{
+  "messages": [
+    { "role": "user", "content": "Your question here" },
+    { "role": "assistant", "content": "Claude's response here" }
+  ]
+}
+```
+
+<Note>
+The export captures the conversation messages (roles and content). It does not include context files you added to the chat, your settings, or any model selection.
+</Note>
+
+## Importing a conversation
+
+Run **Claudette: Import Chat History** to load a previously exported JSON file.
+
+Claudette opens a file picker filtered to `.json` files. After you select a file, the conversation is validated, and its messages are rendered into a new chat view. The conversation history is restored so you can continue asking questions where you left off.
+
+If the file contains messages that don't match the expected format (missing `role` or `content` fields, or an unrecognised role), those messages are silently skipped. At least one valid message is required to proceed with the import.

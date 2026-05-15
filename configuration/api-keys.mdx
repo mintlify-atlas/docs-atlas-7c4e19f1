@@ -1,0 +1,74 @@
+---
+title: "Configure and manage Anthropic API keys in Claudette"
+description: "Add a single key or configure multiple named API keys in Claudette, switch between them at runtime, and route requests through a custom base URL or proxy."
+---
+
+Claudette requires an Anthropic API key to communicate with the Claude API. You can configure a single key for personal use or define multiple named keys to switch between accounts — for example, separate work and personal keys.
+
+## Single API key setup
+
+The simplest configuration is a single string value for `api_key` in your settings file.
+
+```json
+{
+  "api_key": "sk-ant-..."
+}
+```
+
+To open the settings file, go to **Preferences > Package Settings > Claudette > Settings**.
+
+<Note>
+  Get your API key at [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys).
+</Note>
+
+## Multiple API keys
+
+When you need to switch between accounts — such as a work key and a personal key — define `api_key` as an object with a `keys` array and an `active_key` index.
+
+```json
+{
+  "api_key": {
+    "keys": [
+      {
+        "name": "Work",
+        "key": "sk-ant-..."
+      },
+      {
+        "name": "Personal",
+        "key": "sk-ant-..."
+      }
+    ],
+    "active_key": 0
+  }
+}
+```
+
+Each entry in `keys` requires a `name` (shown in the selection panel) and a `key` (the API key string). The `active_key` value is a zero-based index pointing to the currently active key.
+
+To switch the active key at runtime, open the command palette and run **Claudette: Switch API Key**. A quick panel lists all named keys; selecting one updates `active_key` and saves your settings immediately.
+
+<Note>
+  The **Claudette: Switch API Key** command is only enabled when two or more keys are defined in the `keys` array.
+</Note>
+
+## Custom base URL
+
+If you are using a proxy, a self-hosted endpoint, or an API-compatible service, set `base_url` to point to that endpoint. The default is `https://api.anthropic.com/v1/`.
+
+```json
+{
+  "base_url": "https://your-proxy.example.com/v1/"
+}
+```
+
+If your custom endpoint uses a self-signed certificate, set `verify_ssl` to `false` to skip SSL certificate verification.
+
+```json
+{
+  "verify_ssl": false
+}
+```
+
+<Warning>
+  Disabling SSL verification reduces security. Only use `"verify_ssl": false` in trusted development environments, never in production.
+</Warning>

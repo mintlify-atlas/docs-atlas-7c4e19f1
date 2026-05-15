@@ -1,133 +1,62 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
-icon: 'star'
+title: "Claudette: Anthropic Claude AI inside Sublime Text"
+description: "Claudette brings the Claude AI API into Sublime Text. Chat, ask questions about your code, and get AI assistance without leaving your editor."
 ---
 
-## Setting up
+Claudette is a Sublime Text package that brings the power of Claude AI directly into your editor. Ask questions, get code explanations, include files as context, and even let Claude view and edit your project files — all without switching windows.
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Install Claudette via Package Control and configure your API key in minutes.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Ask your first question and start chatting with Claude inside Sublime Text.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Commands" icon="terminal" href="/reference/commands">
+    Full reference for every Claudette command available in the command palette.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Configuration" icon="gear" href="/configuration/api-keys">
+    Set up API keys, choose models, and customize system prompts.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## What you can do with Claudette
 
-Everything you need to create world-class documentation.
+<CardGroup cols={2}>
+  <Card title="Ask questions" icon="message" href="/guides/asking-questions">
+    Open a chat panel and ask Claude anything. Selected text is automatically included as context.
+  </Card>
+  <Card title="Manage context" icon="files" href="/guides/managing-context">
+    Add individual files, all open files, or entire folders to the chat context.
+  </Card>
+  <Card title="Chat history" icon="clock-rotate-left" href="/guides/chat-history">
+    Export and import conversations as JSON to continue where you left off.
+  </Card>
+  <Card title="Web search" icon="globe" href="/guides/web-search">
+    Let Claude search the web for up-to-date information during your conversation.
+  </Card>
+  <Card title="Text editor tool" icon="pen-to-square" href="/guides/text-editor-tool">
+    Give Claude the ability to read and edit files directly in your project.
+  </Card>
+  <Card title="Multiple API keys" icon="key" href="/configuration/api-keys">
+    Switch between work and personal API keys without changing settings.
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Get started in three steps
 
-## Make your content agent ready
+<Steps>
+  <Step title="Install via Package Control">
+    Open the command palette, run **Package Control: Install Package**, and search for `Claudette`.
+  </Step>
+  <Step title="Add your API key">
+    Go to **Preferences > Package Settings > Claudette > Settings** and add your [Anthropic API key](https://console.anthropic.com/settings/keys).
+  </Step>
+  <Step title="Ask your first question">
+    Open the command palette, run **Claudette: Ask Question**, type your question, and press Enter.
+  </Step>
+</Steps>
 
-Make your docs work for humans and AI agents alike.
-
-<Columns cols={2}>
-  <Card
-    title="Prompt component"
-    icon="robot"
-    href="/agent-ready/prompt"
-  >
-    Embed shareable AI prompts readers can copy or open in Cursor.
-  </Card>
-  <Card
-    title="Visibility"
-    icon="eye"
-    href="/agent-ready/visibility"
-  >
-    Show different content to humans and agents reading your docs.
-  </Card>
-  <Card
-    title="Contextual menu"
-    icon="bolt"
-    href="/agent-ready/contextual"
-  >
-    Give readers one-click access to Claude, ChatGPT, Cursor, and more.
-  </Card>
-  <Card
-    title="AI coding tools"
-    icon="wand-magic-sparkles"
-    href="/ai-tools/claude-code"
-  >
-    Set up Claude Code, Cursor, or Windsurf with Mintlify's skill.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Note>
+  A Claude API key is required. Get one at [console.anthropic.com](https://console.anthropic.com/settings/keys).
+</Note>

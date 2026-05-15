@@ -1,0 +1,84 @@
+{
+  "projectType": "general",
+  "projectName": "Claudette",
+  "projectDescription": "A Sublime Text package that integrates the Anthropic Claude AI API directly into your editor for chat, code assistance, and file editing.",
+  "theme": "palm",
+  "primaryColor": "#CC785C",
+  "lightColor": null,
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/api-keys",
+              "configuration/models",
+              "configuration/system-prompts",
+              "configuration/settings-reference"
+            ]
+          },
+          {
+            "group": "Using Claudette",
+            "pages": [
+              "guides/asking-questions",
+              "guides/managing-context",
+              "guides/chat-history",
+              "guides/web-search",
+              "guides/text-editor-tool"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/commands",
+              "reference/keyboard-shortcuts",
+              "reference/menus",
+              "reference/privacy"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Chat with Claude AI directly inside Sublime Text",
+    "Multiple simultaneous chat windows with independent contexts",
+    "Include selected text, open files, or entire folders as chat context",
+    "Export and import chat history as JSON",
+    "Switch between all Anthropic Claude models",
+    "Custom system prompts for specialized assistance",
+    "Multiple API key support",
+    "Web search tool integration",
+    "Text editor tool: Claude can view and edit project files",
+    "Token usage and cost tracking per response and session"
+  ],
+  "publicApiSurface": [
+    "claudette_ask_question",
+    "claudette_ask_new_question",
+    "claudette_clear_chat_history",
+    "claudette_export_chat_history",
+    "claudette_import_chat_history",
+    "claudette_context_add_files",
+    "claudette_context_add_current_file",
+    "claudette_context_remove_current_file",
+    "claudette_context_add_open_files",
+    "claudette_context_refresh_files",
+    "claudette_context_manage_files",
+    "claudette_context_clear_files",
+    "claudette_select_model_panel",
+    "claudette_select_system_message_panel",
+    "claudette_select_api_key_panel",
+    "claudette_stop_request"
+  ]
+}

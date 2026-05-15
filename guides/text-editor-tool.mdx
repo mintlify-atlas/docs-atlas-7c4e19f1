@@ -1,0 +1,92 @@
+---
+title: "Let Claude read and directly edit files in your project"
+description: "Enable Claudette's text editor tool so Claude can navigate your project structure, read files, create new files, and make targeted text replacements on disk."
+---
+
+The text editor tool gives Claude the ability to read files, list directories, create new files, and make targeted text replacements in your project. Instead of pasting file contents into the chat manually, Claude can explore the project structure on its own and read the files it needs to answer your question.
+
+## Enabling the text editor tool
+
+The text editor tool is disabled by default. To enable it, open **Preferences > Package Settings > Claudette > Settings** and add:
+
+```json
+{
+  "text_editor_tool": true
+}
+```
+
+The tool works with **Claude 4 models** (such as Claude Sonnet 4 and Claude Opus 4). When the tool is enabled, requests use non-streaming mode. Claude processes each tool call—reading or editing a file—before composing its final reply, so the response appears in the chat view once the full turn is complete rather than streaming in word by word.
+
+## What Claude can do
+
+With the text editor tool enabled, Claude can run the following operations:
+
+<AccordionGroup>
+  <Accordion title="view — read a file or list a directory">
+    Claude reads the content of a file, with optional line-range limits, or lists the entries in a directory. This is how Claude explores your project structure before answering.
+  </Accordion>
+  <Accordion title="str_replace — replace text in a file">
+    Claude replaces an exact string in a file with new text. The match must be unique—if the string appears more than once, the operation fails and Claude is told to provide more surrounding context.
+  </Accordion>
+  <Accordion title="create — create a new file">
+    Claude creates a file at a given path with specified content. The file must not already exist.
+  </Accordion>
+  <Accordion title="insert — insert text after a line number">
+    Claude inserts text after a specific line number. Use line 0 to insert at the beginning of the file.
+  </Accordion>
+</AccordionGroup>
+
+## File access and security
+
+Claudette restricts all file operations to allowed roots. By default the allowed roots are the folders open in the current Sublime Text window (`window.folders()`). If no project folders are open, Claudette falls back to the directory of the active file.
+
+**Adding extra roots:** Use `text_editor_tool_roots` to extend access to additional directories:
+
+```json
+{
+  "text_editor_tool_roots": ["/path/to/other/project"]
+}
+```
+
+Only paths that are directories and that exist on disk are accepted. Paths outside the allowed roots are rejected, and path traversal (e.g. `../`) is blocked entirely.
+
+<Tip>
+Set `text_editor_tool_roots` to a specific subdirectory of your project to limit what Claude can access—for example, a `src/` folder rather than the entire repository root.
+</Tip>
+
+## Limiting file read size
+
+By default there is no limit on how many characters Claude can read from a file. For large files you can cap the read size:
+
+```json
+{
+  "text_editor_tool_max_characters": 10000
+}
+```
+
+Set to `0` (or omit the setting) for no limit. When a file is truncated, Claude receives a `... (truncated)` notice at the end of the content.
+
+## Workflow
+
+When you start a conversation with the text editor tool enabled, Claudette automatically includes a summary of your project's top-level directory structure in the system message. Claude uses this to orient itself before you ask anything.
+
+From there, a typical interaction looks like:
+
+<Steps>
+  <Step title="You ask a question">
+    Ask about a bug, request a refactor, or ask Claude to add a function. You don't need to paste any code.
+  </Step>
+  <Step title="Claude reads the project">
+    Claude uses `view` to list directories and read files it needs to understand the context.
+  </Step>
+  <Step title="Claude makes edits">
+    If you asked for a change, Claude uses `str_replace`, `create`, or `insert` to write directly to disk.
+  </Step>
+  <Step title="Claude replies">
+    Once all tool calls are complete, Claude's response appears in the chat view explaining what it did.
+  </Step>
+</Steps>
+
+<Warning>
+Claude writes changes directly to your files on disk. There is no automatic undo. Use version control (such as Git) before starting sessions where you expect Claude to make edits, so you can review and revert changes if needed.
+</Warning>

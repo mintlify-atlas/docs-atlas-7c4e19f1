@@ -1,0 +1,65 @@
+---
+title: "Configure system prompts to shape Claude's responses"
+description: "Use system prompts in Claudette to give Claude a specific role or focus. Define multiple prompts in settings, set a default, and switch between them at runtime."
+---
+
+A system prompt is a set of instructions sent to Claude at the start of a conversation, before any user messages. It shapes how Claude responds — setting its tone, focus, or role. Claudette lets you define a list of system prompts in settings, choose a default, and switch between them at any time.
+
+## Default system prompts
+
+Claudette ships with three built-in system prompts:
+
+```json
+{
+  "system_messages": [
+    "You are a helpful AI assistant focused on programming help.",
+    "You are a helpful AI assistant focused on writing and documentation.",
+    "You are a helpful AI assistant ready to help with any task."
+  ]
+}
+```
+
+The `default_system_message_index` setting controls which prompt is active. It is zero-based, so `0` selects the first prompt in the array.
+
+```json
+{
+  "default_system_message_index": 0
+}
+```
+
+With this default, Claude opens every new conversation with the programming-focused prompt. Set `default_system_message_index` to `1` to default to the writing and documentation prompt, or `2` for the general-purpose prompt.
+
+<Note>
+  The system prompt is sent when the first request in a conversation is made. Changing `default_system_message_index` affects new conversations only; existing chat views retain the prompt they started with.
+</Note>
+
+## Adding custom prompts
+
+Add your own entries to the `system_messages` array in your settings file. Each entry is a plain string.
+
+```json
+{
+  "system_messages": [
+    "You are a helpful AI assistant focused on programming help.",
+    "You are a helpful AI assistant focused on writing and documentation.",
+    "You are a helpful AI assistant ready to help with any task.",
+    "You are a senior code reviewer. Point out bugs, performance issues, and deviations from best practices. Be concise and direct."
+  ]
+}
+```
+
+Open the settings file at **Preferences > Package Settings > Claudette > Settings**.
+
+<Tip>
+  Tailor system prompts to the work you do most. A prompt that specifies your preferred language, coding style, or domain can significantly improve the relevance of Claude's responses.
+</Tip>
+
+## Switching at runtime
+
+To change the active system prompt without opening settings, open the command palette and run **Claudette: Switch System Prompt** (`claudette_select_system_message_panel`). A quick panel shows all prompts from `system_messages`. Selecting one updates `default_system_message_index` and saves immediately.
+
+The panel also includes a **Manage system prompts** option that opens the settings file directly if you want to add or edit prompts.
+
+<Note>
+  If `system_messages` is empty or `default_system_message_index` is out of range, no system prompt is sent with the request.
+</Note>

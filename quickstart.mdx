@@ -1,81 +1,91 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
-icon: 'rocket'
+title: "Quickstart: ask your first question with Claudette"
+description: "Ask your first question with Claudette, learn how selected text becomes context automatically, and open a new chat view for a separate conversation."
 ---
 
-## Get started in three steps
+Once Claudette is installed and your API key is configured, you can ask Claude a question in seconds. This page walks you through asking your first question, using selected text as context, and working with multiple chat views.
 
-Get your documentation site running locally and make your first customization.
+## Ask your first question
 
-### Step 1: Set up your local environment
+<Steps>
+  <Step title="Open the command palette">
+    Open the command palette with the keyboard shortcut for your operating system:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    | Platform | Shortcut |
+    |----------|----------|
+    | Mac | `Cmd` + `Shift` + `P` |
+    | Windows | `Ctrl` + `Shift` + `P` |
+    | Linux | `Ctrl` + `Shift` + `P` |
+  </Step>
+  <Step title="Run Claudette: Ask Question">
+    Type `Claudette: Ask Question` and press Enter. An input panel appears at the bottom of the editor with the prompt **Ask Claude:**.
+  </Step>
+  <Step title="Type your question and submit">
+    Type your question and press Enter to send it. Claude's response streams into a chat view that opens alongside your editor.
 
-### Step 2: Deploy your changes
+    Use `Shift` + `Enter` to insert a line break in your question without sending it.
+  </Step>
+</Steps>
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+## Use selected text as context
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+If you highlight code or text in the editor before running **Ask Question**, Claudette automatically includes your selection in the request to Claude. You do not need to copy and paste anything manually.
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+For example, select a function in your file, open the command palette, run **Claudette: Ask Question**, and ask `What does this function do?`. Claude receives both your question and the selected code.
 
-### Step 3: Go live
+## Ask a question from a chat view
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+Once a chat view is open, you can ask follow-up questions directly without reopening the command palette.
+
+<Tip>
+  Press Enter in a chat view to open the **Ask Claude:** input panel. This is the fastest way to continue a conversation.
+</Tip>
+
+## Open a new chat view
+
+Use **Claudette: Ask Question In New Chat View** to start a fresh conversation in a separate view. This is useful when you want to keep conversations focused — for example, one chat for a specific bug and another for a different feature.
+
+If the current chat view already contains a conversation, Claudette opens a new view automatically. Each chat view has its own independent context and message history.
+
+## Add a keyboard shortcut
+
+Claudette does not add keyboard shortcuts by default. You can define your own in **Preferences > Key Bindings**.
+
+For Mac, add the following to your key bindings file to trigger **Ask Question** with `Cmd` + `K`, `Cmd` + `C`:
+
+```json
+[
+  {
+    "keys": ["super+k", "super+c"],
+    "command": "claudette_ask_question"
+  }
+]
+```
+
+For Linux and Windows, use `Ctrl` instead of `Cmd`:
+
+```json
+[
+  {
+    "keys": ["ctrl+k", "ctrl+c"],
+    "command": "claudette_ask_question"
+  }
+]
+```
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
-
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Manage context" icon="files" href="/guides/managing-context">
+    Add files and folders to the chat so Claude has broader knowledge of your project.
+  </Card>
+  <Card title="Switch models" icon="sliders" href="/configuration/models">
+    Choose between Claude Haiku, Sonnet, and Opus depending on your speed and cost preferences.
+  </Card>
+  <Card title="System prompts" icon="pen-to-square" href="/configuration/system-prompts">
+    Create custom system prompts to tune Claude's behavior for specific tasks.
+  </Card>
+  <Card title="Chat history" icon="clock-rotate-left" href="/guides/chat-history">
+    Export your conversations to JSON and import them to continue later.
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

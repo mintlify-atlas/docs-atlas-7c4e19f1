@@ -1,0 +1,69 @@
+---
+title: "Install Claudette via Package Control in Sublime Text"
+description: "Install the Claudette package via Package Control, get an Anthropic API key, and configure your settings to start chatting with Claude in Sublime Text."
+---
+
+Claudette is distributed through [Package Control](https://packagecontrol.io), the standard package manager for Sublime Text. Installation takes a few minutes and requires a free Anthropic account to obtain an API key.
+
+## Install Claudette
+
+<Steps>
+  <Step title="Install Package Control">
+    If you do not already have Package Control, open the command palette and run **Install Package Control**. Sublime Text will download and install it automatically.
+
+    Alternatively, follow the [Package Control installation guide](https://packagecontrol.io/installation) for manual instructions.
+  </Step>
+  <Step title="Open the command palette">
+    Open the command palette with the keyboard shortcut for your operating system:
+
+    | Platform | Shortcut |
+    |----------|----------|
+    | Mac | `Cmd` + `Shift` + `P` |
+    | Windows | `Ctrl` + `Shift` + `P` |
+    | Linux | `Ctrl` + `Shift` + `P` |
+  </Step>
+  <Step title="Run Package Control: Install Package">
+    Type `Package Control: Install Package` and press Enter. Wait a moment while Package Control fetches the package list.
+  </Step>
+  <Step title="Search for Claudette">
+    Type `Claudette` in the search field and press Enter to install the package.
+  </Step>
+  <Step title="Get an API key from Anthropic">
+    Claudette requires an Anthropic API key to communicate with Claude. Create or sign in to your account at [console.anthropic.com](https://console.anthropic.com/settings/keys), then generate a new API key.
+  </Step>
+  <Step title="Configure your API key">
+    Open the Claudette settings file at **Preferences > Package Settings > Claudette > Settings** and add your key:
+
+    ```json
+    {
+      "api_key": "your-api-key-here"
+    }
+    ```
+
+    Save the file. Claudette is now ready to use.
+  </Step>
+</Steps>
+
+## Settings file location
+
+The settings file is located at the path shown in the Sublime Text menu. On most systems the user settings file is stored here:
+
+| Platform | Path |
+|----------|------|
+| Mac | `~/Library/Application Support/Sublime Text/Packages/User/Claudette.sublime-settings` |
+| Windows | `%APPDATA%\Sublime Text\Packages\User\Claudette.sublime-settings` |
+| Linux | `~/.config/sublime-text/Packages/User/Claudette.sublime-settings` |
+
+<Tip>
+  The easiest way to open the settings file is always through the menu: **Preferences > Package Settings > Claudette > Settings**. Sublime Text opens the default and user settings side by side so you can see all available options.
+</Tip>
+
+## Manual installation
+
+If you prefer not to use Package Control, you can install Claudette manually:
+
+1. Download or clone the [Claudette repository](https://github.com/barryceelen/Claudette) from GitHub.
+2. Open Sublime Text and go to **Preferences > Browse Packages** to open the `Packages` directory.
+3. Copy the `Claudette` folder into the `Packages` directory.
+4. Restart Sublime Text.
+5. Configure your API key as described in step 6 above.

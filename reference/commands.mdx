@@ -1,0 +1,88 @@
+---
+title: "Claudette command reference: every command and its ID"
+description: "Every Claudette command with its command ID, covering chat, context file management, and settings — accessible via the palette, menus, or key bindings."
+---
+
+Claudette exposes all of its functionality through Sublime Text's command system. Every command listed here is accessible via **Tools > Claudette** in the main menu or by typing the caption into the command palette. You can also bind any command to a keyboard shortcut using its command ID.
+
+## Chat commands
+
+<AccordionGroup>
+  <Accordion title="Ask Question — claudette_ask_question">
+    Opens an input panel where you type your question and press Enter to submit. Any text selected in the active view is automatically included as context. Press Shift+Enter in the input panel to add a line break.
+
+    **Tip:** In a chat view, pressing Enter directly submits your question without opening the input panel.
+  </Accordion>
+
+  <Accordion title="Ask Question In New Chat View — claudette_ask_new_question">
+    Opens an input panel like Ask Question, but guarantees that the response appears in a fresh chat view. If the current view already has a conversation, a new tab is created. Useful when you want to run multiple simultaneous chats, each with their own context and history.
+  </Accordion>
+
+  <Accordion title="Stop Request — claudette_stop_request">
+    Cancels the in-flight API request for the currently focused chat view. The command is only enabled while a request is active. You can also trigger this with the Escape key when a chat view is focused.
+  </Accordion>
+
+  <Accordion title="Clear Chat History — claudette_clear_chat_history">
+    Clears the conversation history that is sent with each new question, reducing token usage. Previous messages remain visible in the chat view but are no longer resent to the API. Useful when a conversation has grown long and you want to start fresh without losing the visible transcript.
+  </Accordion>
+
+  <Accordion title="Export Chat History — claudette_export_chat_history">
+    Saves the most recently active chat view in the current window to a JSON file. Use this to archive conversations or move them between machines.
+  </Accordion>
+
+  <Accordion title="Import Chat History — claudette_import_chat_history">
+    Opens a file picker to select a previously exported JSON file and loads the conversation into a new chat view, allowing you to continue where you left off.
+  </Accordion>
+</AccordionGroup>
+
+## Context commands
+
+<AccordionGroup>
+  <Accordion title="Add File to Chat — claudette_context_add_files">
+    Available from the sidebar right-click menu. Adds the selected file or folder contents to the chat context so Claude can reference them in responses. When a folder is selected, all files within it are included.
+  </Accordion>
+
+  <Accordion title="Add Current File To Chat — claudette_context_add_current_file">
+    Adds the contents of the currently open file to the chat context. The file content is sent along with every subsequent question in the active chat.
+  </Accordion>
+
+  <Accordion title="Remove Current File From Chat — claudette_context_remove_current_file">
+    Removes the currently open file from the chat context, if it was previously added. The file content will no longer be sent with new questions.
+  </Accordion>
+
+  <Accordion title="Add All Open Files To Chat — claudette_context_add_open_files">
+    Adds the contents of all files currently open in the editor to the chat context in one step.
+  </Accordion>
+
+  <Accordion title="Refresh Included Files — claudette_context_refresh_files">
+    Re-reads all files in the chat context from disk and updates their content. Run this after saving changes to an included file so Claude sees the latest version.
+  </Accordion>
+
+  <Accordion title="Show Included Files — claudette_context_manage_files">
+    Opens a quick panel listing all files currently included in the chat context. You can select entries to remove individual files.
+  </Accordion>
+
+  <Accordion title="Clear Included Files — claudette_context_clear_files">
+    Removes all files from the chat context at once.
+  </Accordion>
+</AccordionGroup>
+
+## Settings commands
+
+<AccordionGroup>
+  <Accordion title="Switch Model — claudette_select_model_panel">
+    Opens a quick panel listing all available Anthropic models. Claudette uses `claude-sonnet-4-5` by default. Selecting a different model applies it to subsequent questions in the active chat.
+  </Accordion>
+
+  <Accordion title="Switch System Prompt — claudette_select_system_message_panel">
+    Opens a quick panel to choose from your configured system prompts. System prompts shape Claude's behavior and persona. You can define multiple prompts in the Claudette settings and switch between them at any time.
+  </Accordion>
+
+  <Accordion title="Switch API Key — claudette_select_api_key_panel">
+    Opens a quick panel to switch between multiple configured API keys. Useful when working across different Anthropic accounts or usage limits.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  All commands are also accessible via the command palette. Open it with Cmd+Shift+P (Mac) or Ctrl+Shift+P (Windows/Linux) and type "Claudette" to filter the list.
+</Note>

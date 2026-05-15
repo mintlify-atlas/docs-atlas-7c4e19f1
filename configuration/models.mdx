@@ -1,0 +1,62 @@
+---
+title: "Choose and switch between Claude models in Claudette"
+description: "Set a default Claude model, switch between available models live via the command palette, and configure max tokens and temperature to control responses."
+---
+
+Claudette lets you choose which Claude model powers your conversations. You can set a default in your settings file or switch models on the fly using a command palette panel that fetches the available model list directly from the API.
+
+## Default model
+
+The default model is `claude-sonnet-4-5`. To use a different model as your default, set the `model` key in your settings file.
+
+```json
+{
+  "model": "claude-opus-4-5"
+}
+```
+
+Open the settings file at **Preferences > Package Settings > Claudette > Settings**.
+
+## Switching models via command
+
+To change the active model without editing your settings file, open the command palette and run **Claudette: Switch Model** (`claudette_select_model_panel`). Claudette fetches the current list of available models live from the Anthropic API and displays them in a quick panel. Selecting a model updates the `model` setting and saves it immediately.
+
+<Note>
+  **Claudette: Switch Model** requires a valid API key to fetch the model list from the API.
+</Note>
+
+## Max tokens
+
+The `max_tokens` setting controls the maximum number of output tokens per response. The default is `8192`. The value must not exceed the output limit of the selected model — the API returns a `400` error if it does.
+
+```json
+{
+  "max_tokens": 8192
+}
+```
+
+Common model output limits:
+
+| Model | Output limit |
+|-------|-------------|
+| Claude Opus 4.6 | 128,000 tokens |
+| Claude Sonnet 4.5 / Haiku 4.5 | 64,000 tokens |
+| Claude Sonnet 4 / Opus 4 | 8,192 tokens |
+
+## Temperature
+
+The `temperature` setting controls the randomness of Claude's responses. Lower values produce more deterministic output; higher values produce more varied responses. The valid range is `0.0` to `1.0`, and the default is `1.0`.
+
+```json
+{
+  "temperature": "0.7"
+}
+```
+
+Values outside the `0.0`–`1.0` range are ignored and fall back to `1.0`.
+
+<Tip>
+  For code generation and factual tasks, a lower temperature (e.g., `0.2`–`0.5`) tends to produce more consistent results. For creative writing, keep it closer to `1.0`.
+</Tip>
+
+For a full list of available Claude models and their capabilities, see the [Anthropic models documentation](https://docs.anthropic.com/en/docs/about-claude/models).
